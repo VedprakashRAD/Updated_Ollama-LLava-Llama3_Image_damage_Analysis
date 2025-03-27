@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://readyassist.in/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./fav.png">
+  <link rel="stylesheet" href="./assets/css/menu.css">
+  <link rel="stylesheet" href="./assets/css/home.css">
+  <link rel="stylesheet" href="./assets/css/footer.css">
+  <link rel="stylesheet" href="./assets/css/global.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>24/7 Car & Bike Roadside Assistance India | Breakdown Support Service</title>
+  <meta name="description"
+    content="Get 24/7 Car, Bike & EVs roadside assistance service across India. ReadyAssist provides emergency on-spot breakdown support with fastest reach time.">
+  <meta name="keywords"
+    content="breakdown support, roadside assistance, towing service, onspot repair, flat tyre repair, puncture repair, bike repair, car repair, vehicle breakdown, car repair at night, bike repair at night, tyre puncture, tubeless puncture, puncture repair, puncture mechanic, bike towing, car towing, bike breakdown, car breakdown, fuel delivery, breakdown repair assistance,car jump start, battery jumpstart, 24 hours vehicle repair, superbike towing, super car towing, Towing, Flatbed, vehicle starting trouble, 2 wheeler repair, 4 wheeler repair, 2 wheeler towing, 4 wheeler towing, Bangalore, roadside assistance india, car roadside assistance india, bike roadside assistance india">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CNHVJV5BNL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-CNHVJV5BNL');
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-757512863"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-757512863');
+  </script>
+
+  <script>
+    function gtag_report_conversion(url) {
+      var callback = function () {
+        if (typeof (url) != 'undefined') {
+          window.location = url;
+        }
+      };
+      gtag('event', 'conversion', {
+        'send_to': 'AW-757512863/YvbaCJHqptgBEJ_1mukC',
+        'event_callback': callback
+      });
+      return false;
+    }
+  </script>
+
+</head>
+
+<body>
+
+  <!-- <div id="popup" class="popup hidden">
+    <div class="popup-content">
+      <img id="closeBtn" class="close-btn" src="./assets/images/common/close-line.svg" alt="Close icon">
+      <img class="popup-img"
+        src=""
+        alt="Popup Image">
+    </div>
+  </div> -->
+
+  <div data-include="./components/navigationBar.html"></div>
+
+  <main id="router" class="w-100">
+
+    <div id="home">
+      <div class="home_bg">
+        <div class="homescreen_section mx-auto">
+          <div class="home_left_section">
+            <div class="homescreen_text_btn">
+              <div class="homscreen_text_section">
+                <p>24/7 On-Spot</p>
+                <h1>Bike & Car <br />Repair Service</h1>
+                <h2>
+                  Anytime & Anywhere in India<br />Experts in EV Repair.
+                </h2>
+              </div>
+              <div class="home_btn_parent">
+                <button onclick="toggleSlider('bookService')"
+                  class="gradient-border landing_bookbtn box px-20 weight600">BOOK A SERVICE</button>
+              </div>
+            </div>
+            <div class="quickService_container">
+              <div class="quickServices_title">
+                <p>Popular Services</p>
+              </div>
+              <div class="quickServices_list">
+                <a class="quickServices_item" href="./car-inspection.html">
+                  Car Inspection
+                </a>
+                <a class="quickServices_item" href="./dashcam-installation.html">
+                  Dashcam Fitment
+                </a>
+                <a class="quickServices_item" href="./doorstep-bike-general-service.html">
+                  Bike Express Service
+                </a>
+              </div>
+            </div>
+            <div class="dummy_div"></div>
+          </div>
+          <div class="home_right_section">
+            <img src="./assets/images/landing/home_banner.webp" alt="landing image">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="cng">
+      <div class="cng_section mx-auto">
+        <div class="cng_left_section">
+          <h3>CNG<span>First</span></h3>
+          <h5>Powering Future</h5>
+          <p>CNG Retro-fitment is the process of converting your existing petrol or diesel vehicle to operate on
+            Compressed
+            Natural Gas (CNG) fuel. You can convert your vehicles with government-approved CNG kits at ReadyAssist
+            retro-fitment
+            centers.</p>
+          <div class="cng_nav"><a href="./cng-retrofitment-cngfirst.html" class="cng_nav_button">know More ></a></div>
+        </div>
+        <div class="cng_right_section">
+          <img src="./assets/images/landing/cngImg.webp" alt="cng image">
+        </div>
+      </div>
+    </div>
+
+    <div id="businessVerticals">
+      <div class="businessVerticals_section mx-auto">
+        <div class="businessVerticals_head">
+          <h3>ReadyAssist Business Verticals</h3>
+          <p>ReadyAssist offers comprehensive after-sales support services that
+            cater to the entire vehicle ownership cycle in the automobile segment. Our range of services is tailored to
+            meet
+            the needs of individuals and corporate customers alike. Below, you'll find an overview of
+            some of the key services we provide.</p>
+        </div>
+        <div class="businessVerticals_card_section">
+          <div class="businessVerticals_card">
+            <img alt="Roadside Assistance" src="./assets/images/landing/RSA.webp" />
+            <p>RSA</p>
+          </div>
+          <div class="businessVerticals_card">
+            <img alt="car & bike doorstep services" src="./assets/images/landing/Doorstep-Services.webp" />
+            <p>Doorstep Services</p>
+          </div>
+          <div class="businessVerticals_card">
+            <img alt="car & bike accessories fitment" src="./assets/images/landing/Telematics.webp" />
+            <p>Accessories Fitment</p>
+          </div>
+          <div class="businessVerticals_card">
+            <img alt="extended warranty" src="./assets/images/landing/Extended-Warranty.webp" />
+            <p>Extended Warranty</p>
+          </div>
+          <div class="businessVerticals_card">
+            <img alt="telematic installation" src="./assets/images/landing/1ghtfy.webp" />
+            <p>Telematic Installation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="inspection">
+      <div class="shape">
+        <img src="./assets/images/vehicle-inspection/landing_left.webp" alt="Shape">
+      </div>
+      <div class="shape_right_bottom"></div>
+      <div class="inspection_section mx-auto">
+        <div class="inspection_left">
+          <div class="inspection_text">
+            <h2>Car Inspection<br><span>Services</span></h2>
+            <div>
+              <ul>
+                <li>Doorstep Inspections</li>
+                <li>78-Point Vehicle Health Check</li>
+                <li>Fault Detection and Repair Recommendations</li>
+              </ul>
+            </div>
+          </div>
+          <div class="inspection_btn_parent">
+            <a class="inspection_view_btn" href="./car-inspection.html">Know More ></a>
+          </div>
+        </div>
+        <div class="inspection_right" style="z-index: 3;">
+          <img src="./assets/images/vehicle-inspection/main-image.webp" alt="ReadyAssist Mechanic" loading="lazy">
+        </div>
+      </div>
+    </div>
+
+    <div id="testimonials" class="px-20">
+      <div class="crop-width pt-50">
+        <div class="text-center">
+          <p id="testimonialTitle" class="weight600">TESTIMONIALS</p>
+          <p id="testimonailSubTitle" class="weight700">Hear From Our Clients</p>
+        </div>
+        <div id="clientTestimonials" class="flex flowY-Scroll py-50">
+
+        </div>
+
+      </div>
+    </div>
+
+    <div id="clientList">
+      <div class="client_logos">
+        <div class="logo_items">
+          <img alt="blu smart" src="./assets/images/clients/blu-smart-mobility.webp">
+          <img alt="exponent energy" src="./assets/images/clients/exponent.webp">
+          <img alt="altmobility" src="./assets/images/clients/alt-mobility.webp">
+          <img alt="hero electric" src="./assets/images/clients/hero-electric.webp">
+          <img alt="sun mobility" src="./assets/images/clients/sun-mobility.webp">
+          <img alt="okaya" src="./assets/images/clients/okaya.webp">
+          <img alt="flipkart" src="./assets/images/clients/flipkart.webp">
+          <img alt="River" src="./assets/images/clients/RIVER--1.webp">
+          <img alt="ola" src="./assets/images/clients/ola.webp">
+          <img alt="zoom car" src="./assets/images/clients/zoomcar.webp">
+          <img alt="spinny" src="./assets/images/clients/spinny.webp">
+          <img alt="pure" src="./assets/images/clients/pure.webp">
+          <img alt="zypp" src="./assets/images/clients/zypp-electric.webp">
+          <img alt="revamp" src="./assets/images/clients/revamp.webp">
+          <img alt="omega" src="./assets/images/clients/omega-seikl-mobility.webp">
+          <img alt="Euler" src="./assets/images/clients/EULERl.webp">
+          <img alt="simple energy" src="./assets/images/clients/simple_energy.webp">
+          <img alt="revlot" src="./assets/images/clients/revolt.webp">
+          <img alt="okinawa" src="./assets/images/clients/okinawa.webp">
+          <img alt="ultraviolette" src="./assets/images/clients/ultraviolette.webp">
+          <img alt="turo bikes" src="./assets/images/clients/touro-bikes.webp">
+          <img alt="agp" src="./assets/images/clients/agp.webp">
+          <img alt="amplus" src="./assets/images/clients/amplus.webp">
+          <img alt="crossbeats" src="./assets/images/clients/crossbeats.webp">
+          <img alt="think gas" src="./assets/images/clients/think-GAS.webp">
+        </div>
+        <div class="logo_items">
+          <img alt="blu smart" src="./assets/images/clients/blu-smart-mobility.webp">
+          <img alt="exponent energy" src="./assets/images/clients/exponent.webp">
+          <img alt="altmobility" src="./assets/images/clients/alt-mobility.webp">
+          <img alt="hero electric" src="./assets/images/clients/hero-electric.webp">
+          <img alt="sun mobility" src="./assets/images/clients/sun-mobility.webp">
+          <img alt="okaya" src="./assets/images/clients/okaya.webp">
+          <img alt="flipkart" src="./assets/images/clients/flipkart.webp">
+          <img alt="River" src="./assets/images/clients/RIVER--1.webp">
+          <img alt="ola" src="./assets/images/clients/ola.webp">
+          <img alt="zoom car" src="./assets/images/clients/zoomcar.webp">
+          <img alt="spinny" src="./assets/images/clients/spinny.webp">
+          <img alt="pure" src="./assets/images/clients/pure.webp">
+          <img alt="zypp" src="./assets/images/clients/zypp-electric.webp">
+          <img alt="revamp" src="./assets/images/clients/revamp.webp">
+          <img alt="omega" src="./assets/images/clients/omega-seikl-mobility.webp">
+          <img alt="Euler" src="./assets/images/clients/EULERl.webp">
+          <img alt="simple energy" src="./assets/images/clients/simple_energy.webp">
+          <img alt="revlot" src="./assets/images/clients/revolt.webp">
+          <img alt="okinawa" src="./assets/images/clients/okinawa.webp">
+          <img alt="ultraviolette" src="./assets/images/clients/ultraviolette.webp">
+          <img alt="turo bikes" src="./assets/images/clients/touro-bikes.webp">
+          <img alt="agp" src="./assets/images/clients/agp.webp">
+          <img alt="amplus" src="./assets/images/clients/amplus.webp">
+          <img alt="crossbeats" src="./assets/images/clients/crossbeats.webp">
+          <img alt="think gas" src="./assets/images/clients/think-GAS.webp">
+        </div>
+      </div>
+    </div>
+
+    <div id="generalService">
+      <div class="generalService_section mx-auto">
+        <div class="generalService_left">
+          <div class="generalService_text">
+            <p>Bike Express Service</p>
+            <h2>Get your bike serviced without leaving your home!</h2>
+          </div>
+          <div class="generalService_para">
+            <p>Bangalore's trusted doorstep bike service – expert care delivered right to your location. Enjoy quick,
+              reliable, and
+              affordable maintenance for bikes and scooters</p>
+          </div>
+          <div class="generalService_checkbox">
+            <ul>
+              <li>Free Engine Oil</li>
+              <li>Upto 150cc</li>
+              <li>For Bikes & Scooters</li>
+            </ul>
+          </div>
+          <div class="generalService_book">
+            <a class="generalService_btn" href="./doorstep-bike-general-service.html">Check Now ></a>
+          </div>
+        </div>
+        <div class="generalService_right">
+          <img src="./assets/images/bike-general-service/2w-general-bg.jpg" alt="bike generalService image">
+        </div>
+      </div>
+    </div>
+
+    <div id="raVideo" class="px-20">
+      <div class="crop-width flow-hide mx-auto py-50 flex flex-wrap text-white">
+        <div id="pushVideo" class="w-100 py-lg-50 pb-40">
+
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-3 px-10 py-10">
+          <div class="col-12 br20 h-100 flex items-center statsCard">
+            <div class="col-7 statData">
+              <p class="weight700 fs-xl-22">3 Million+</p>
+              <p class="py-2 text-white">Vehicles Served</p>
+            </div>
+            <div class="text-end col-5">
+              <img src="./assets/images/common/car.gif" class="gif_images" alt="vehicles served" />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 px-10 py-10">
+          <div class="col-12 br20 h-100 flex items-center statsCard">
+            <div class="col-7 statData">
+              <p class="weight700">19000+</p>
+              <p class="py-2 text-white">Pincodes Covered</p>
+            </div>
+            <div class="text-end col-5">
+              <img src="./assets/images/common/location.gif" class="gif_images" alt="pincodes covered" />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 px-10 py-10">
+          <div class="col-12 br20 h-100 flex items-center statsCard">
+            <div class="col-7 statData">
+              <p class="weight700">9000+</p>
+              <p class="py-2 text-white">Service Providers</p>
+            </div>
+            <div class="text-end col-5">
+              <img src="./assets/images/common/people.gif" class="gif_images" alt="car & bike service providers" />
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-3 px-10 py-10">
+          <div class="col-12 br20 h-100 flex items-center statsCard">
+            <div class="col-7 statData">
+              <p class="weight700">2.5 Million+</p>
+              <p class="py-2 text-white">Subscribed Users</p>
+            </div>
+            <div class="text-end col-5">
+              <img src="./assets/images/common/spNetwork.gif" class="gif_images" alt="rsa subscribed users" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="joinUs" class="relative flow-hide">
+      <div id="joinUsBackground" class="absolute w-100 h-100">
+        <div class="justify-center h-100">
+          <div id="backgroundSeg1" class="col-12 flex flex-wrap h-100">
+            <div class="col-12 col-lg-6 skew-1">
+
+            </div>
+            <div class="col-12 col-lg-6 skew-2">
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="joinUsContent" class="px-20">
+        <div class="justify-center">
+          <div class="col-12 crop-width flex flex-wrap">
+            <div class="col-12 col-lg-5" style="display: flex;flex-direction: column;justify-content: center;">
+              <p class="weight600" style="color: #198754;">Mec+</p>
+              <p id="joinUs_text2" class="weight700 py-20">SERVE WITH US<br /> AND EARN MORE</p>
+              <p id="joinus_description" class="weight400 py-10">Step into our service partner network and become an
+                esteemed member of a
+                10000+ technician family to unlock the ultimate earning potential. Seize this chance
+                to grow your business by joining our service network. Let's achieve unparalleled
+                success together!!</p>
+              <div style="padding: 25px 0;">
+                <a id="know_more_btn" class="text-white weight500" href="./mec-plus.html">Know More</a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4 flow-hide">
+              <div class="relative flow-hide flex justify-center">
+                <div id="anim_wrapper" class="relative">
+
+                </div>
+                <div class="absolute">
+                  <img id="anim_img" alt="readyassist mechanic" src="./assets/images/landing/service_provider.webp" />
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-3">
+
+              <div class="text-start text-lg-end">
+                <p class="weight500 text-white fs-20 py-10">Get in with info</p>
+                <input autocomplete="off" id="sp_name" name="name" class="joinUsInputs w-100 weight500 text-white"
+                  type="text" placeholder="Full Name" />
+                <input autocomplete="off" id="sp_number" name="mobile" class="joinUsInputs w-100 weight500 text-white"
+                  type="number" onKeyPress="if(this.value.length==10) return false;" placeholder="Mobile Number" />
+                <input autocomplete="off" id="sp_email" name="email" class="joinUsInputs w-100 weight500 text-white"
+                  type="email" placeholder="Email ID" />
+                <br />
+                <button onclick="home.submitJoin()" class="weight500 joinus_btn py-10 text-white my-10">JOIN US</button>
+              </div>
+              <div class="mecPlusDownloadApp">
+                <img src="./assets/images/common/Download-mecplus-QR.png" alt="" style="width: 120px;height:120px;border-radius: 8px;border: 1px solid #f4f4f4;">
+                <div class="mecplus_downloadapp_qr_text">
+                  <h6>SCAN QR CODE <span>TO <br> GET THE APP</span></h6>
+                  <div class="mecplus_downloadapp_badges">
+                    <a href="https://play.google.com/store/apps/details?id=com.prod.readyassist_mechapp"
+                      target="_blank"><img src="./assets/images/common/playStore.png" alt="playstore icon"></a>
+                    <a href="https://apps.apple.com/in/app/mec/id6475290624" target="_blank"><img
+                        src="./assets/images/common/appStore.png" alt="appstore icon"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="whyus">
+      <div class="whyus_section mx-auto">
+        <div class="whyus_left">
+          <h6>Why Choose Us</h6>
+          <h3>Why People choose Our Services?</h3>
+          <p>ReadyAssist offers comprehensive roadside assistance and expert vehicle care services right at your
+            doorstep. Whether you're dealing with a breakdown, upgrading your vehicle, or enhancing its features, our
+            skilled technicians provide seamless, reliable solutions tailored to your needs.</p>
+          <div class="whyus_checkbox">
+            <ul>
+              <li>Expert Technicians</li>
+              <li>At Your Doorstep</li>
+              <li>Customized Solutions</li>
+            </ul>
+            <ul>
+              <li>Quick and Convenient</li>
+              <li>Customer Satisfaction</li>
+            </ul>
+          </div>
+          <div class="book_service_btn">
+            <button class="whyus_book_service" onclick="toggleSlider('bookService')">Book Service</button>
+          </div>
+        </div>
+        <div class="whyus_right">
+          <img src="./assets/images/Dashcam/whyus_multimedia.webp" alt="installation image" loading="lazy">
+          <div class="whyus_shape">
+            <img src="./assets/images/Dashcam/whyus_shape1.svg" alt="shape" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-include="./components/downloadApp.html"></div>
+
+    <div id="news" class="py-50">
+      <div id="newsSeg" class="crop-width flex flex-wrap">
+
+      </div>
+      <div class="news_knowmore_btn mx-auto">
+        <a href="./readyassist-news.html">more >></a>
+      </div>
+    </div>
+
+    <div id="rewards" class="pb-50">
+      <div class="crop-width mx-auto flex flex-wrap items-center py-50 px-20">
+        <div id="rewardsLeft" class="col-12 col-lg-6">
+          <p class="weight500">GIVE-AWAY</p>
+          <p class="weight600">Get the chance to win a subscription package
+            worth Rs. 1000!</p>
+          <p class="weight300 py-30">We highly appreciate your valuable
+            suggestions and feedback. We'll list the best recommendations/reviews and will give offer subscription
+            packages as a token of our gratitude.</p>
+        </div>
+        <div id="rewardsRight" class="col-12 col-lg-6 ps-lg-5">
+          <div class="col-12">
+            <div class="flex flex-wrap col-12 mb-3">
+              <div class="pe-2 col-12 col-lg-6 pe-lg-20">
+                <input id="nameInp" placeholder="Name" class="w-100 input_feedback weight400 py-3 px-3" />
+              </div>
+              <div class="col-12 col-lg-6 ps-2">
+                <input type="tel" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="phoneInp"
+                  type="number" placeholder="Phone Number" class="w-100 input_feedback weight400 py-3 px-3" />
+              </div>
+            </div>
+            <input id="emailInp" placeholder="Email" class="input_feedback weight400 col-12 py-3 mb-3 px-3" />
+            <input id="suggestionInp" placeholder="Your Suggesstion"
+              class="input_feedback weight400 col-12 py-3 mb-3 px-3">
+            <button class="w-100 text-white weight500 mt-10" onclick="rewardsSubmit()">SUBMIT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </main>
+
+  <div data-include="./components/footer.html"></div>
+
+  <script src="./assets/js/componentLoader.js"></script>
+  <script src="./assets/js/menu.js"></script>
+  <script type="module" src="./assets/js/common.js"></script>
+  <script type="module" src="./assets/js/home.js"></script>
+
+</body>
+
+</html>

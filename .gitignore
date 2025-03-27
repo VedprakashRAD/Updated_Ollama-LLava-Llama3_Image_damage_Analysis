@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environment
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Application specific
+vehicle_analysis/uploads/*
+vehicle_analysis/reports/*
+reports/*
+uploads/*
+!vehicle_analysis/uploads/.gitkeep
+!vehicle_analysis/reports/.gitkeep
+!reports/.gitkeep
+!uploads/.gitkeep
+
+# System files
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ollama related
+*.gguf
+Ollama.app/
+Vehicle_Report.pdf

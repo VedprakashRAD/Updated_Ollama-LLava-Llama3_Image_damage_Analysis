@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Damage Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .logo {
+            max-height: 60px;
+            max-width: 180px;
+            object-fit: contain;
+        }
+        .title {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .title h1 {
+            margin: 0;
+            color: #333;
+        }
+        .title p {
+            margin: 5px 0 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .upload-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .preview-item {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .analysis-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            display: none;
+        }
+        .analysis-section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .loading:after {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #FFB800;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+            display: none;
+        }
+        .btn {
+            background-color: #FFB800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #E5A600;
+        }
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .report-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #FFB800;
+            text-decoration: none;
+        }
+        .report-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/static/logo.png" alt="ReadyAssist Logo" class="logo">
+        <div class="title">
+            <h1>Vehicle Damage Analysis</h1>
+            <p>Powered by ReadyAssist AI</p>
+        </div>
+    </div>
+
+    <div class="upload-container">
+        <input type="file" id="fileInput" accept="image/*" multiple style="display: none">
+        <button class="btn" onclick="document.getElementById('fileInput').click()">Select Images</button>
+        <div class="image-preview" id="imagePreview"></div>
+        <button class="btn" id="analyzeBtn" onclick="analyzeImages()" disabled>Analyze Images</button>
+        <div class="error" id="error"></div>
+        <div class="loading" id="loading"></div>
+    </div>
+
+    <div class="analysis-container" id="analysisContainer">
+        <h2>Analysis Results</h2>
+        <div id="analysisResults"></div>
+        <a href="#" id="reportLink" class="report-link" target="_blank">Download PDF Report</a>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            selectedFiles = selectedFiles.concat(files);
+            updateImagePreview();
+            document.getElementById('analyzeBtn').disabled = selectedFiles.length === 0;
+        });
+
+        function updateImagePreview() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview">
+                        <button class="remove-btn" onclick="removeImage(${index})">×</button>
+                    `;
+                    preview.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeImage(index) {
+            selectedFiles.splice(index, 1);
+            updateImagePreview();
+            document.getElementById('analyzeBtn').disabled = selectedFiles.length === 0;
+        }
+
+        async function analyzeImages() {
+            const formData = new FormData();
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analysisContainer').style.display = 'none';
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
+
+                const result = await response.json();
+                displayResults(result);
+            } catch (error) {
+                document.getElementById('error').textContent = `Error: ${error.message}`;
+                document.getElementById('error').style.display = 'block';
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+            }
+        }
+
+        function displayResults(result) {
+            const container = document.getElementById('analysisResults');
+            container.innerHTML = '';
+
+            result.analysis_results.forEach((analysis, index) => {
+                const section = document.createElement('div');
+                section.className = 'analysis-section';
+                
+                // Add image
+                const img = document.createElement('img');
+                img.src = `/uploads/${result.image_paths[index]}`;
+                img.style.maxWidth = '100%';
+                img.style.marginBottom = '20px';
+                section.appendChild(img);
+
+                // Add analysis text
+                const pre = document.createElement('pre');
+                pre.style.whiteSpace = 'pre-wrap';
+                pre.style.fontFamily = 'inherit';
+                pre.textContent = analysis;
+                section.appendChild(pre);
+
+                container.appendChild(section);
+            });
+
+            // Update report link if available
+            const reportLink = document.getElementById('reportLink');
+            if (result.report_path) {
+                reportLink.href = `/report/${result.report_path}`;
+                reportLink.style.display = 'inline-block';
+            } else {
+                // Show error message if PDF generation failed
+                reportLink.style.display = 'none';
+                const errorMsg = document.createElement('p');
+                errorMsg.textContent = 'PDF generation failed: ' + (result.error || 'Unknown error');
+                errorMsg.style.color = 'red';
+                container.appendChild(errorMsg);
+            }
+
+            document.getElementById('analysisContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html> 

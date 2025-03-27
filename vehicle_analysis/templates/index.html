@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Damage Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        .logo {
+            max-height: 60px;
+            max-width: 180px;
+            object-fit: contain;
+            background-color: #FFB800;
+            border-radius: 8px;
+            padding: 5px;
+        }
+        .title {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .title h1 {
+            margin: 0;
+            color: #333;
+        }
+        .title p {
+            margin: 5px 0 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .upload-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .preview-item {
+            position: relative;
+            width: 200px;
+            height: 150px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .analysis-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            display: none;
+        }
+        .analysis-section {
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+        .models-used {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .models-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            margin-right: 5px;
+            font-size: 0.85em;
+        }
+        .models-badge.llava {
+            background-color: #E2F0FF;
+            color: #0066CC;
+        }
+        .models-badge.llava-llama3 {
+            background-color: #FFF0E2;
+            color: #CC6600;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .loading:after {
+            content: '';
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #FFB800;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+            display: none;
+        }
+        .btn {
+            background-color: #FFB800;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #E5A600;
+        }
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .report-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #FFB800;
+            text-decoration: none;
+        }
+        .report-link:hover {
+            text-decoration: underline;
+        }
+        .result-section {
+            margin-bottom: 15px;
+        }
+        .result-section h4 {
+            margin: 10px 0 5px 0;
+            color: #444;
+        }
+        .result-section ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .result-section li {
+            margin-bottom: 5px;
+        }
+        .multi-value {
+            color: #666;
+            font-style: italic;
+            margin-top: 2px;
+            font-size: 0.9em;
+        }
+        .highlight-item {
+            font-weight: bold;
+            color: #333;
+        }
+        .vehicle-color {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            margin-left: 5px;
+            background-color: #666;
+            text-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+        }
+        .damage-section {
+            border-left: 4px solid #e74c3c;
+            padding-left: 10px;
+            margin-left: -10px;
+            background-color: rgba(231, 76, 60, 0.05);
+        }
+        .no-damage-section {
+            border-left: 4px solid #2ecc71;
+            padding-left: 10px;
+            margin-left: -10px;
+            background-color: rgba(46, 204, 113, 0.05);
+        }
+        .recommendation {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .view-toggle {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .view-toggle.active {
+            background-color: #FFB800;
+            color: white;
+            border-color: #E5A600;
+        }
+        .models-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+        .model-column {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #eee;
+        }
+        .model-column h4 {
+            color: #333;
+            margin-top: 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div style="width: 50px; height: 50px; background-color: #FFB800; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            <span style="color: white; font-size: 24px; font-weight: bold;">⚡</span>
+        </div>
+        <div class="title">
+            <h1>Vehicle Damage Analysis</h1>
+            <p>Powered by ReadyAssist AI</p>
+        </div>
+    </div>
+
+    <div class="upload-container">
+        <input type="file" id="fileInput" accept="image/*" multiple style="display: none">
+        <button class="btn" onclick="document.getElementById('fileInput').click()">Select Images</button>
+        <div class="image-preview" id="imagePreview"></div>
+        <button class="btn" id="analyzeBtn" onclick="analyzeImages()" disabled>Analyze Images</button>
+        <div class="error" id="error"></div>
+        <div class="loading" id="loading"></div>
+    </div>
+
+    <div class="analysis-container" id="analysisContainer">
+        <h2>Analysis Results</h2>
+        <div id="modelsInfo" style="margin-bottom: 20px; font-style: italic;"></div>
+        
+        <div class="btn-group" id="viewToggle">
+            <button class="view-toggle active" data-view="combined">Combined View</button>
+            <button class="view-toggle" data-view="comparison">Model Comparison</button>
+        </div>
+        
+        <div id="analysisResults"></div>
+        <div id="comparisonResults" style="display: none;"></div>
+        <a href="#" id="reportLink" class="report-link" target="_blank">Download PDF Report</a>
+    </div>
+
+    <script>
+        let selectedFiles = [];
+        let resultData = null; // Store the full result data for toggling views
+
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+            selectedFiles = selectedFiles.concat(files);
+            updateImagePreview();
+            document.getElementById('analyzeBtn').disabled = selectedFiles.length === 0;
+        });
+
+        function updateImagePreview() {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = 'preview-item';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview">
+                        <button class="remove-btn" onclick="removeImage(${index})">×</button>
+                    `;
+                    preview.appendChild(div);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeImage(index) {
+            selectedFiles.splice(index, 1);
+            updateImagePreview();
+            document.getElementById('analyzeBtn').disabled = selectedFiles.length === 0;
+        }
+
+        function formatAnalysisText(text) {
+            // Process the analysis text to create a formatted HTML output
+            const sections = text.split('\n\n');
+            let html = '';
+            
+            sections.forEach(section => {
+                if (!section.trim()) return;
+                
+                const lines = section.split('\n');
+                const title = lines[0];
+                
+                let sectionClass = '';
+                // Apply special styling to damage section
+                if (title === 'DAMAGE ANALYSIS') {
+                    // Check if "No visible damage detected" is in the content
+                    const hasNoDamage = lines.some(line => line.includes('No visible damage detected'));
+                    sectionClass = hasNoDamage ? 'no-damage-section' : 'damage-section';
+                }
+                
+                // Special styling for recommendation section
+                if (title === 'RECOMMENDATION') {
+                    sectionClass = 'recommendation';
+                }
+                
+                html += `<div class="result-section ${sectionClass}">`;
+                html += `<h4>${title}</h4>`;
+                
+                if (lines.length > 1) {
+                    html += '<ul>';
+                    lines.slice(1).forEach(line => {
+                        if (!line.trim()) return;
+                        
+                        // Check if the line contains multiple model opinions (separated by |)
+                        if (line.includes(' | ')) {
+                            const [key, valueWithAlternatives] = line.split(': ', 2);
+                            const values = valueWithAlternatives.split(' | ');
+                            
+                            html += `<li><span class="highlight-item">${key}:</span> ${formatSpecialFields(key, values[0])}`;
+                            html += `<div class="multi-value">Alternative assessment: ${values.slice(1).join(', ')}</div>`;
+                            html += `</li>`;
+                        } else if (line.includes(': ')) {
+                            const [key, value] = line.split(': ', 2);
+                            html += `<li><span class="highlight-item">${key}:</span> ${formatSpecialFields(key, value)}</li>`;
+                        } else {
+                            html += `<li>${line}</li>`;
+                        }
+                    });
+                    html += '</ul>';
+                }
+                
+                html += `</div>`;
+            });
+            
+            return html;
+        }
+        
+        function formatSpecialFields(key, value) {
+            // Special formatting for vehicle color
+            if (key.includes('Vehicle Color') && value && value !== 'Not visible') {
+                // Try to convert the color name to an actual background color
+                const colorMap = {
+                    // Base colors
+                    'white': '#ffffff',
+                    'black': '#000000',
+                    'red': '#e74c3c',
+                    'blue': '#3498db',
+                    'green': '#2ecc71',
+                    'yellow': '#f1c40f',
+                    'orange': '#e67e22',
+                    'purple': '#9b59b6',
+                    'pink': '#e84393',
+                    'brown': '#964B00',
+                    'grey': '#95a5a6',
+                    'silver': '#bdc3c7',
+                    
+                    // Specific shades
+                    'midnight blue': '#2c3e50',
+                    'navy blue': '#34495e',
+                    'metallic silver': '#bdc3c7',
+                    'metallic gray': '#7f8c8d',
+                    'pearl white': '#f5f5f5',
+                    'off white': '#f5f5f5',
+                    'wine red': '#c0392b',
+                    'burgundy': '#8e44ad',
+                    'racing red': '#e74c3c',
+                    'forest green': '#27ae60',
+                    'olive green': '#16a085',
+                    'golden': '#f39c12',
+                    'champagne': '#e8d4b9',
+                    'graphite': '#212121',
+                    'gunmetal': '#282828',
+                    'maroon': '#800000',
+                    'copper': '#b87333',
+                    'bronze': '#cd7f32',
+                    'taupe': '#b2957a'
+                };
+                
+                // Try to find a matching color
+                let bgColor = '#666666'; // Default gray
+                for (const [colorName, colorCode] of Object.entries(colorMap)) {
+                    if (value.toLowerCase().includes(colorName.toLowerCase())) {
+                        bgColor = colorCode;
+                        break;
+                    }
+                }
+                
+                // Determine if text should be white or black based on background color brightness
+                const isLightColor = (bgColor === '#ffffff' || bgColor === '#f5f5f5' || bgColor === '#f1c40f' || bgColor === '#e8d4b9' || bgColor === '#bdc3c7');
+                const textColor = isLightColor ? 'black' : 'white';
+                
+                return `${value} <span class="vehicle-color" style="background-color:${bgColor}; color:${textColor};">${value}</span>`;
+            }
+            
+            // Special formatting for damages
+            if ((key.includes('Bumper') || key.includes('Panel') || key.includes('Door') || 
+                key.includes('Hood') || key.includes('Light') || key.includes('Window')) && 
+                value && !value.includes('No damage')) {
+                return `<strong style="color:#e74c3c">${value}</strong>`;
+            }
+            
+            // Format cost estimates with currency styling
+            if (key.includes('Cost') && value && value.includes('₹')) {
+                return `<strong style="color:#16a085">${value}</strong>`;
+            }
+            
+            return value;
+        }
+
+        async function analyzeImages() {
+            const formData = new FormData();
+            selectedFiles.forEach(file => {
+                formData.append('files', file);
+            });
+
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analysisContainer').style.display = 'none';
+
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error(await response.text());
+                }
+
+                resultData = await response.json(); // Store the results
+                displayResults(resultData);
+            } catch (error) {
+                document.getElementById('error').textContent = `Error: ${error.message}`;
+                document.getElementById('error').style.display = 'block';
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('analyzeBtn').disabled = false;
+            }
+        }
+
+        // Set up view toggle buttons
+        document.querySelectorAll('.view-toggle').forEach(button => {
+            button.addEventListener('click', function() {
+                // Update active state
+                document.querySelectorAll('.view-toggle').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Toggle views
+                const view = this.getAttribute('data-view');
+                if (view === 'combined') {
+                    document.getElementById('analysisResults').style.display = 'block';
+                    document.getElementById('comparisonResults').style.display = 'none';
+                } else {
+                    document.getElementById('analysisResults').style.display = 'none';
+                    document.getElementById('comparisonResults').style.display = 'block';
+                    
+                    // Generate comparison view if we have data
+                    if (resultData) {
+                        displayModelComparison(resultData);
+                    }
+                }
+            });
+        });
+
+        function displayModelComparison(result) {
+            const container = document.getElementById('comparisonResults');
+            container.innerHTML = '';
+            
+            if (!result.analysis_results || !result.models_used || result.models_used.length < 2) {
+                container.innerHTML = '<p>Model comparison is only available when multiple models are used.</p>';
+                return;
+            }
+            
+            // Process each image analysis
+            result.image_paths.forEach((imagePath, imageIndex) => {
+                // Create image section
+                const section = document.createElement('div');
+                section.className = 'analysis-section';
+                
+                // Add image
+                const img = document.createElement('img');
+                img.src = `/uploads/${imagePath}`;
+                img.style.maxWidth = '100%';
+                img.style.marginBottom = '20px';
+                section.appendChild(img);
+                
+                // If we have raw model results, show side-by-side comparison
+                const analysisResult = result.full_analysis_results && result.full_analysis_results[imageIndex];
+                
+                if (analysisResult && analysisResult.model_results && analysisResult.model_results.length > 1) {
+                    const comparisonDiv = document.createElement('div');
+                    comparisonDiv.className = 'models-comparison';
+                    
+                    // Create column for each model
+                    analysisResult.model_results.forEach(modelResult => {
+                        const modelDiv = document.createElement('div');
+                        modelDiv.className = 'model-column';
+                        
+                        // Model name header
+                        const modelHeader = document.createElement('h4');
+                        modelHeader.textContent = modelResult.model;
+                        modelDiv.appendChild(modelHeader);
+                        
+                        // Model analysis content
+                        const analysisContent = document.createElement('div');
+                        analysisContent.innerHTML = formatAnalysisText(modelResult.response);
+                        modelDiv.appendChild(analysisContent);
+                        
+                        comparisonDiv.appendChild(modelDiv);
+                    });
+                    
+                    section.appendChild(comparisonDiv);
+                } else {
+                    // Fallback if we don't have model-specific results
+                    const noComparisonMsg = document.createElement('p');
+                    noComparisonMsg.textContent = 'Detailed model comparison not available for this image.';
+                    section.appendChild(noComparisonMsg);
+                }
+                
+                container.appendChild(section);
+            });
+        }
+
+        function displayResults(result) {
+            const container = document.getElementById('analysisResults');
+            container.innerHTML = '';
+            
+            // Show which models were used
+            if (result.models_used && result.models_used.length > 0) {
+                const modelsInfo = document.getElementById('modelsInfo');
+                const modelBadges = result.models_used.map(model => 
+                    `<span class="models-badge ${model}">${model}</span>`
+                ).join(' ');
+                modelsInfo.innerHTML = `Analysis performed using: ${modelBadges}`;
+            }
+
+            result.analysis_results.forEach((analysis, index) => {
+                const section = document.createElement('div');
+                section.className = 'analysis-section';
+                
+                // Add image
+                const img = document.createElement('img');
+                img.src = `/uploads/${result.image_paths[index]}`;
+                img.style.maxWidth = '100%';
+                img.style.marginBottom = '20px';
+                section.appendChild(img);
+
+                // Add formatted analysis text
+                section.innerHTML += formatAnalysisText(analysis);
+
+                container.appendChild(section);
+            });
+
+            // Update report link if available
+            const reportLink = document.getElementById('reportLink');
+            if (result.report_path) {
+                reportLink.href = `/report/${result.report_path}`;
+                reportLink.style.display = 'inline-block';
+            } else {
+                // Show error message if PDF generation failed
+                reportLink.style.display = 'none';
+                const errorMsg = document.createElement('p');
+                errorMsg.textContent = 'PDF generation failed: ' + (result.error || 'Unknown error');
+                errorMsg.style.color = 'red';
+                container.appendChild(errorMsg);
+            }
+
+            document.getElementById('analysisContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html> 
